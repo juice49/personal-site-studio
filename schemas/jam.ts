@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 
 export default {
   title: 'Jam',
@@ -25,10 +25,10 @@ export default {
       title: 'song.name',
       subtitle: 'date',
     },
-    perpare({ title, subtitle }) {
+    prepare({ title, subtitle }) {
       return {
         title,
-        subtitle: format(subtitle, 'DD/MM/YYYY'),
+        subtitle: format(parseISO(subtitle), 'dd/MM/yyyy'),
       }
     },
   },
