@@ -1,0 +1,16 @@
+{
+  "parts": [
+    {
+      "implements": "part:@sanity/base/schema-type",
+      "path": "./schemas/song"
+    },
+    {
+      "implements": "part:@sanity/base/schema-type",
+      "path": "./schemas/artist"
+    },
+    {
+      "implements": "part:@sanity/base/schema-type",
+      "path": "./schemas/album"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+@import 'part:@sanity/base/theme/variables-style';
+
+.duration {
+  text-transform: uppercase;
+  font-size: var(--font-size-tiny);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 0.5rem;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+}
+
+.detailsItem {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.detailsItem + .detailsItem {
+  margin-left: 0.5em;
+}
+
+.image {
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  border-radius: var(--border-radius-large);
+}
+
+.fieldContainer {
+  display: grid;
+  grid-row-gap: 2em;
+}
