@@ -14,7 +14,7 @@ export default {
       type: 'string',
     },
     {
-      title: 'image',
+      title: 'Image',
       name: 'image',
       type: 'image',
       validation: rule => rule.required().error('Album image not processed.'),
