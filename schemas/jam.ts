@@ -25,10 +25,11 @@ export default {
       title: 'song.name',
       subtitle: 'date',
       media: 'song.album.image',
+      artistName: 'song.artists.0.name',
     },
-    prepare({ title, subtitle, ...rest }) {
+    prepare({ title, subtitle, artistName, ...rest }) {
       return {
-        title,
+        title: [artistName, title].join(' - '),
         subtitle: subtitle && format(parseISO(subtitle), 'dd/MM/yyyy'),
         ...rest,
       }
