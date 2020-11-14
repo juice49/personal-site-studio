@@ -24,11 +24,13 @@ export default {
     select: {
       title: 'song.name',
       subtitle: 'date',
+      media: 'song.album.image',
     },
-    prepare({ title, subtitle }) {
+    prepare({ title, subtitle, ...rest }) {
       return {
         title,
         subtitle: subtitle && format(parseISO(subtitle), 'dd/MM/yyyy'),
+        ...rest,
       }
     },
   },
