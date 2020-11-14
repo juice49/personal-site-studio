@@ -20,6 +20,18 @@ export default {
       },
     },
   ],
+  orderings: [
+    {
+      title: 'Date',
+      name: 'date',
+      by: [
+        {
+          field: 'date',
+          direction: 'desc',
+        },
+      ],
+    },
+  ],
   preview: {
     select: {
       title: 'song.name',
