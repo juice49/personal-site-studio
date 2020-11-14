@@ -81,7 +81,7 @@ const Result: React.FC<ResultProps> = ({ track }) => (
         <span className={styles.detailsItem}>
           {track.artists.map(artist => artist.name).join(', ')}
         </span>
-        <span className={styles.detailsItem}>•</span>
+        <span className={styles.detailsItem}> - </span>
         <span className={styles.detailsItem}>{track.album.name}</span>
         {track.explicit && (
           <span className={styles.detailsItem}>
