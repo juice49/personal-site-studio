@@ -28,7 +28,7 @@ export default {
     prepare({ title, subtitle }) {
       return {
         title,
-        subtitle: format(parseISO(subtitle), 'dd/MM/yyyy'),
+        subtitle: subtitle && format(parseISO(subtitle), 'dd/MM/yyyy'),
       }
     },
   },
