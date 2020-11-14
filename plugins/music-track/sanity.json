@@ -2,7 +2,7 @@
   "parts": [
     {
       "implements": "part:@sanity/base/schema-type",
-      "path": "./schemas/song"
+      "path": "./schemas/track"
     },
     {
       "implements": "part:@sanity/base/schema-type",

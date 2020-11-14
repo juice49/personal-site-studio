@@ -1,8 +1,8 @@
 import Search from '../components/search'
 
 export default {
-  title: 'Song',
-  name: 'song',
+  title: 'Track',
+  name: 'track',
   type: 'object',
   fields: [
     {

@@ -7,9 +7,9 @@ export default {
   description: 'This is my jam',
   fields: [
     {
-      title: 'Song',
-      name: 'song',
-      type: 'song',
+      title: 'Track',
+      name: 'track',
+      type: 'track',
     },
     {
       title: 'Date',
@@ -34,10 +34,10 @@ export default {
   ],
   preview: {
     select: {
-      title: 'song.name',
+      title: 'track.name',
       subtitle: 'date',
-      media: 'song.album.image',
-      artistName: 'song.artists.0.name',
+      media: 'track.album.image',
+      artistName: 'track.artists.0.name',
     },
     prepare({ title, subtitle, artistName, ...rest }) {
       return {
