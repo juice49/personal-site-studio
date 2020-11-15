@@ -41,7 +41,7 @@ export default {
     },
     prepare({ title, subtitle, artistName, ...rest }) {
       return {
-        title: [artistName, title].join(' - '),
+        title: artistName && title ? [artistName, title].join(' - ') : null,
         subtitle: subtitle && format(parseISO(subtitle), 'dd/MM/yyyy'),
         ...rest,
       }
