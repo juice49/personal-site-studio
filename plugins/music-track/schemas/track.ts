@@ -45,6 +45,28 @@ export default {
       name: 'spotifyPreviewUrl',
       type: 'string',
     },
+    {
+      title: 'Data by platform',
+      name: 'dataByPlatform',
+      type: 'object',
+      fields: [
+        {
+          title: 'Spotify',
+          name: 'spotify',
+          type: 'platformData',
+        },
+        {
+          title: 'Apple Music',
+          name: 'appleMusic',
+          type: 'platformData',
+        },
+        {
+          title: 'YouTube',
+          name: 'youtube',
+          type: 'platformData',
+        },
+      ],
+    },
   ],
   inputComponent: Search,
 }
