@@ -9,7 +9,6 @@ import useSwr from 'swr'
 import { useDebounce } from 'use-debounce'
 import prettyMs from 'pretty-ms'
 import { Track, Album, Platform, PlatformData } from '../types'
-import { OdesliData } from '../types/odesli'
 import styles from './search.css'
 
 interface Props {
@@ -128,45 +127,9 @@ async function fetchAlbumImage(album: Album): Promise<any> {
   )
 }
 
-const ODESLI_API_URL = 'https://api.song.link/v1-alpha.1'
-
 async function fetchPlatformUrls(spotifyId: string): Promise<any> {
-  const params = new URLSearchParams({
-    platform: 'spotify',
-    id: spotifyId,
-    type: 'song',
-  })
-
-  const response = await fetch(`${ODESLI_API_URL}/links?${params}`)
-  const data: OdesliData = await response.json()
-
-  return PatchEvent.from(
-    set(transformPlatformData(data), ['album.dataByPlatform']),
-  )
-}
-
-function transformPlatformData(
-  odesliData: OdesliData,
-): Partial<Record<Platform, PlatformData>> {
-  const platforms: Platform[] = ['appleMusic', 'spotify', 'youtube']
-
-  return platforms.reduce<Partial<Record<Platform, PlatformData>>>(
-    (platformData, platform) => {
-      const odesliLinksByPlatform = odesliData.linksByPlatform[platform]
-
-      return {
-        ...platformData,
-        [platform]: {
-          platform,
-          id: getOdesliPlatformId(odesliLinksByPlatform.entityUniqueId),
-          url: odesliLinksByPlatform.url,
-        },
-      }
-    },
-    {},
-  )
-}
-
-function getOdesliPlatformId(odesliEntityUniqueId: string): string {
-  return odesliEntityUniqueId.split('::')[1]
+  const params = new URLSearchParams({ id: spotifyId })
+  const response = await fetch(`/api/odesli/?${params}`)
+  const data: Partial<Record<Platform, PlatformData>> = await response.json()
+  return PatchEvent.from(set(data, ['album.dataByPlatform']))
 }
