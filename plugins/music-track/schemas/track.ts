@@ -41,6 +41,11 @@ export default {
       type: 'boolean',
     },
     {
+      title: 'Duration',
+      name: 'duration',
+      type: 'number',
+    },
+    {
       title: 'Spotify preview URL',
       name: 'spotifyPreviewUrl',
       type: 'string',
