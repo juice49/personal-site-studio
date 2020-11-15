@@ -14,6 +14,14 @@ export interface AlbumImage {
   url: string
 }
 
+export type Platform = 'spotify' | 'appleMusic' | 'youtube'
+
+export interface PlatformData {
+  platform: Platform
+  id: string
+  url: string
+}
+
 export interface Track extends SpotifyObject {
   isrc: string
   artists: Artist[]
@@ -21,4 +29,5 @@ export interface Track extends SpotifyObject {
   duration: number
   explicit: boolean
   spotifyPreviewUrl?: string
+  dataByPlatform: Record<Platform, PlatformData>
 }

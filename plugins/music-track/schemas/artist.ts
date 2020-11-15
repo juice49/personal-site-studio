@@ -8,5 +8,10 @@ export default {
       name: 'spotifyId',
       type: 'string',
     },
+    {
+      title: 'Name',
+      name: 'name',
+      type: 'string',
+    },
   ],
 }

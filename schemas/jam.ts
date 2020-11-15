@@ -7,9 +7,9 @@ export default {
   description: 'This is my jam',
   fields: [
     {
-      title: 'Song',
-      name: 'song',
-      type: 'song',
+      title: 'Track',
+      name: 'track',
+      type: 'track',
     },
     {
       title: 'Date',
@@ -20,15 +20,30 @@ export default {
       },
     },
   ],
+  orderings: [
+    {
+      title: 'Date',
+      name: 'date',
+      by: [
+        {
+          field: 'date',
+          direction: 'desc',
+        },
+      ],
+    },
+  ],
   preview: {
     select: {
-      title: 'song.name',
+      title: 'track.name',
       subtitle: 'date',
+      media: 'track.album.image',
+      artistName: 'track.artists.0.name',
     },
-    prepare({ title, subtitle }) {
+    prepare({ title, subtitle, artistName, ...rest }) {
       return {
-        title,
-        subtitle: format(parseISO(subtitle), 'dd/MM/yyyy'),
+        title: artistName && title ? [artistName, title].join(' - ') : null,
+        subtitle: subtitle && format(parseISO(subtitle), 'dd/MM/yyyy'),
+        ...rest,
       }
     },
   },
