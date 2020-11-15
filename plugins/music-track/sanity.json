@@ -11,6 +11,10 @@
     {
       "implements": "part:@sanity/base/schema-type",
       "path": "./schemas/album"
+    },
+    {
+      "implements": "part:@sanity/base/schema-type",
+      "path": "./schemas/platform-data"
     }
   ]
 }
