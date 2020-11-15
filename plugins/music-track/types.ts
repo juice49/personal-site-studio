@@ -29,5 +29,5 @@ export interface Track extends SpotifyObject {
   duration: number
   explicit: boolean
   spotifyPreviewUrl?: string
-  dataByPlatform: Record<Platform, PlatformData>
+  dataByPlatform?: Record<Platform, PlatformData>
 }
