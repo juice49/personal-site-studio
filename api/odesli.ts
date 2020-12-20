@@ -21,12 +21,15 @@ export default async function (req, res) {
 function transformPlatformData(
   odesliData: OdesliData,
 ): Partial<Record<Platform, PlatformData>> {
-  // TODO: These platforms can be undefined in the Odesli response.
   const platforms: Platform[] = ['appleMusic', 'spotify', 'youtube']
 
   return platforms.reduce<Partial<Record<Platform, PlatformData>>>(
     (platformData, platform) => {
       const odesliLinksByPlatform = odesliData.linksByPlatform[platform]
+
+      if (!odesliLinksByPlatform) {
+        return platformData
+      }
 
       return {
         ...platformData,
