@@ -15,6 +15,14 @@
     {
       "implements": "part:@sanity/base/schema-type",
       "path": "./schemas/platform-data"
+    },
+    {
+      "implements": "part:@sanity/base/schema-type",
+      "path": "./schemas/platform-track-data"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./track-structure"
     }
   ]
 }

@@ -1,33 +1,35 @@
-export interface SpotifyObject {
-  spotifyId: string
-  name: string
-}
-
-export interface Artist extends SpotifyObject {}
-
-export interface Album extends SpotifyObject {
-  images: AlbumImage[]
-}
-
-export interface AlbumImage {
-  dimensions: [width: number, height: number]
-  url: string
-}
-
-export type Platform = 'spotify' | 'appleMusic' | 'youtube'
+export type Platform = 'appleMusic' | 'spotify' | 'youtube'
 
 export interface PlatformData {
   platform: Platform
   id: string
-  url: string
+  url?: string
 }
 
-export interface Track extends SpotifyObject {
-  isrc: string
+export type DataByPlatform<T extends PlatformData> = Partial<
+  Record<Exclude<Platform, 'appleMusic'>, T>
+> & { appleMusic: T }
+
+export interface Artist {
+  name: string
+  dataByPlatform: DataByPlatform<PlatformData>
+}
+
+export interface Album {
+  name: string
+  appleMusicImageUrl: string
+  dataByPlatform: DataByPlatform<PlatformData>
+}
+
+export interface PlatformTrackData extends PlatformData {
+  previewUrl?: string
+}
+
+export interface Track {
+  name: string
   artists: Artist[]
   album: Album
   duration: number
   explicit: boolean
-  spotifyPreviewUrl?: string
-  dataByPlatform?: Record<Platform, PlatformData>
+  dataByPlatform: DataByPlatform<PlatformTrackData>
 }

@@ -1,13 +1,8 @@
 export default {
   title: 'Album',
   name: 'album',
-  type: 'object',
+  type: 'document',
   fields: [
-    {
-      title: 'Spotify id',
-      name: 'spotifyId',
-      type: 'string',
-    },
     {
       title: 'Name',
       name: 'name',
@@ -17,30 +12,23 @@ export default {
       title: 'Image',
       name: 'image',
       type: 'image',
-      validation: rule => rule.required().error('Album image not processed.'),
     },
     {
-      title: 'Images',
-      name: 'images',
-      type: 'array',
-      of: [
+      title: 'Apple Music image URL',
+      name: 'appleMusicImageUrl',
+      type: 'string',
+      description:
+        'The base Apple Music image URL, excluding "/source" and the filename.',
+    },
+    {
+      title: 'Data by platform',
+      name: 'dataByPlatform',
+      type: 'object',
+      fields: [
         {
-          title: 'Image',
-          name: 'image',
-          type: 'object',
-          fields: [
-            {
-              title: 'Dimensions',
-              name: 'dimensions',
-              type: 'array',
-              of: [{ type: 'number' }],
-            },
-            {
-              title: 'URL',
-              name: 'url',
-              type: 'string',
-            },
-          ],
+          title: 'Apple Music',
+          name: 'appleMusic',
+          type: 'platformData',
         },
       ],
     },
