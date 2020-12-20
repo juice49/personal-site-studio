@@ -1,17 +1,24 @@
 export default {
   title: 'Artist',
   name: 'artist',
-  type: 'object',
+  type: 'document',
   fields: [
-    {
-      title: 'Spotify id',
-      name: 'spotifyId',
-      type: 'string',
-    },
     {
       title: 'Name',
       name: 'name',
       type: 'string',
+    },
+    {
+      title: 'Data by platform',
+      name: 'dataByPlatform',
+      type: 'object',
+      fields: [
+        {
+          title: 'Apple Music',
+          name: 'appleMusic',
+          type: 'platformData',
+        },
+      ],
     },
   ],
 }

@@ -9,7 +9,8 @@ export default {
     {
       title: 'Track',
       name: 'track',
-      type: 'track',
+      type: 'reference',
+      to: [{ type: 'track' }],
     },
     {
       title: 'Date',

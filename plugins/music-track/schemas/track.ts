@@ -1,20 +1,8 @@
-import Search from '../components/search'
-
 export default {
   title: 'Track',
   name: 'track',
-  type: 'object',
+  type: 'document',
   fields: [
-    {
-      title: 'Spotify id',
-      name: 'spotifyId',
-      type: 'string',
-    },
-    {
-      title: 'ISRC',
-      name: 'isrc',
-      type: 'string',
-    },
     {
       title: 'Name',
       name: 'name',
@@ -26,14 +14,16 @@ export default {
       type: 'array',
       of: [
         {
-          type: 'artist',
+          type: 'reference',
+          to: [{ type: 'artist' }],
         },
       ],
     },
     {
       title: 'Album',
       name: 'album',
-      type: 'album',
+      type: 'reference',
+      to: [{ type: 'album' }],
     },
     {
       title: 'Explicit',
@@ -46,32 +36,33 @@ export default {
       type: 'number',
     },
     {
-      title: 'Spotify preview URL',
-      name: 'spotifyPreviewUrl',
-      type: 'string',
-    },
-    {
       title: 'Data by platform',
       name: 'dataByPlatform',
       type: 'object',
       fields: [
         {
-          title: 'Spotify',
-          name: 'spotify',
-          type: 'platformData',
-        },
-        {
           title: 'Apple Music',
           name: 'appleMusic',
-          type: 'platformData',
+          type: 'platformTrackData',
+        },
+        {
+          title: 'Spotify',
+          name: 'spotify',
+          type: 'platformTrackData',
         },
         {
           title: 'YouTube',
           name: 'youtube',
-          type: 'platformData',
+          type: 'platformTrackData',
         },
       ],
     },
   ],
-  inputComponent: Search,
+  preview: {
+    select: {
+      title: 'name',
+      subtitle: 'artists.0.name',
+      media: 'album.image',
+    },
+  },
 }
