@@ -13,8 +13,7 @@
     "@sanity/default-layout",
     "@sanity/default-login",
     "@sanity/desk-tool",
-    "music-track",
-    "dark-theme-blue"
+    "music-track"
   ],
   "env": {
     "development": {
