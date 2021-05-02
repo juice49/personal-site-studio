@@ -13,13 +13,13 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity/base": "^2.2.4",
-    "@sanity/components": "^2.1.4",
-    "@sanity/core": "^2.2.3",
-    "@sanity/default-layout": "^2.2.4",
-    "@sanity/default-login": "^2.1.4",
-    "@sanity/desk-tool": "^2.2.4",
-    "@sanity/vision": "^2.1.4",
+    "@sanity/base": "^2.10.0",
+    "@sanity/components": "^2.2.6",
+    "@sanity/core": "^2.10.0",
+    "@sanity/default-layout": "^2.10.0",
+    "@sanity/default-login": "^2.8.0",
+    "@sanity/desk-tool": "^2.10.1",
+    "@sanity/vision": "^2.10.0",
     "date-fns": "^2.16.1",
     "got": "^11.8.0",
     "keyv": "^4.0.3",
@@ -34,7 +34,7 @@
     "use-debounce": "^5.0.4"
   },
   "devDependencies": {
-    "@sanity/cli": "^2.2.3",
+    "@sanity/cli": "^2.10.0",
     "@types/node": "^14.14.7",
     "@types/spotify-api": "0.0.5",
     "@types/styled-components": "^5.1.7",
