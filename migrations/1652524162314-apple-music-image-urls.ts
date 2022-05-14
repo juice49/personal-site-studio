@@ -12,7 +12,7 @@ interface iTunesResponse<Type> {
 interface Document {
   _id: string
   _rev: string
-  _migration: number | null
+  migration: number | null
 }
 
 const client = createClient.withConfig({
@@ -27,13 +27,13 @@ function fetchDocuments(): Promise<Document[]> {
       *[
           _type == "album" &&
           (
-            !defined(_migration) ||
-            _migration < $migration
+            !defined(migration) ||
+            migration < $migration
           )
         ][0...100] {
         _id,
         _rev,
-        _migration
+        migration
       }
     `,
     {
@@ -63,7 +63,7 @@ async function buildPatch(
       document._id,
       {
         set: {
-          _migration: MIGRATION,
+          migration: MIGRATION,
         },
         unset: ['appleMusicImageUrl'],
         ifRevisionID: document._rev,
@@ -75,7 +75,7 @@ async function buildPatch(
     document._id,
     {
       set: {
-        _migration: MIGRATION,
+        migration: MIGRATION,
         appleMusicImageUrl: iTunesData.results[0].artworkUrl100
           .split('/')
           .slice(0, -1)

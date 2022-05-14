@@ -5,7 +5,7 @@ export default {
   fields: [
     {
       title: 'Migration',
-      name: '_migration',
+      name: 'migration',
       type: 'number',
       hidden: true,
     },
