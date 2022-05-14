@@ -4,6 +4,12 @@ export default {
   type: 'document',
   fields: [
     {
+      title: 'Migration',
+      name: '_migration',
+      type: 'number',
+      hidden: true,
+    },
+    {
       title: 'Name',
       name: 'name',
       type: 'string',
