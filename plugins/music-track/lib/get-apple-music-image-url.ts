@@ -27,5 +27,5 @@ export default function getAppleMusicImageUrl(
   baseUrl: string,
   dimensions: AppleMusicImageDimensions,
 ): string {
-  return `${baseUrl}/source/${dimensions}x${dimensions}bb.jpg`
+  return `${baseUrl}/${dimensions}x${dimensions}bb.jpg`
 }
