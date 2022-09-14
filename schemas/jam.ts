@@ -40,7 +40,12 @@ export default {
       media: 'track.album.image',
       artistName: 'track.artists.0.name',
     },
-    prepare({ title, subtitle, artistName, ...rest }) {
+    prepare({
+      title,
+      subtitle,
+      artistName,
+      ...rest
+    }: Partial<{ title: string; subtitle: string; artistName: string }>) {
       return {
         title: artistName && title ? [artistName, title].join(' - ') : null,
         subtitle: subtitle && format(parseISO(subtitle), 'dd/MM/yyyy'),

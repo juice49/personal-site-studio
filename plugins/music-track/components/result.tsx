@@ -1,9 +1,8 @@
 import React from 'react'
-import { Badge } from '@sanity/ui'
-import Label from 'part:@sanity/components/labels/default'
+import styled from 'styled-components'
+import { Text, Card, Heading, Label, Badge, Stack } from '@sanity/ui'
 import prettyMs from 'pretty-ms'
 import { Track } from '../types'
-import styles from './search.css'
 
 import getAppleMusicImageUrl from '../lib/get-apple-music-image-url'
 
@@ -12,34 +11,66 @@ interface Props {
 }
 
 const Result: React.FC<Props> = ({ track }) => (
-  <div className={styles.container}>
-    <img
-      src={getAppleMusicImageUrl(track.album.appleMusicImageUrl, 150)}
-      className={styles.image}
-      width={150}
-      height={150}
-    />
-    <div>
-      <Label>{track.name}</Label>
-      <div className={styles.details}>
-        <span className={styles.detailsItem}>
-          {track.artists.map(artist => artist.name).join(', ')}
-        </span>
-        <span className={styles.detailsItem}> - </span>
-        <span className={styles.detailsItem}>{track.album.name}</span>
-        {track.explicit && (
-          <span className={styles.detailsItem}>
-            <Badge mode='outline' tone='caution'>
-              Explicit
-            </Badge>
-          </span>
-        )}
-      </div>
-      <p className={styles.duration}>
-        {prettyMs(track.duration, { secondsDecimalDigits: 0 })}
-      </p>
-    </div>
-  </div>
+  <Card as='button' padding={3}>
+    <Container>
+      <Image
+        src={getAppleMusicImageUrl(track.album.appleMusicImageUrl, 150)}
+        width={150}
+        height={150}
+      />
+      <DetailsContainer>
+        <Stack space={4}>
+          <Stack space={3}>
+            <Heading as='h3' size={1}>
+              {track.name}
+            </Heading>
+            <Details>
+              <Text size={1}>
+                {track.artists.map(artist => artist.name).join(', ')}
+              </Text>
+              <Text size={1}> - </Text>
+              <Text size={1}>{track.album.name}</Text>
+              {track.explicit && (
+                <Badge mode='outline' tone='caution' fontSize={1}>
+                  Explicit
+                </Badge>
+              )}
+            </Details>
+          </Stack>
+          <Label size={0}>
+            {prettyMs(track.duration, { secondsDecimalDigits: 0 })}
+          </Label>
+        </Stack>
+      </DetailsContainer>
+    </Container>
+  </Card>
 )
 
 export default Result
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+`
+
+const DetailsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+
+const Details = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5em;
+`
+
+const Image = styled.img`
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  border-radius: 4px;
+`

@@ -1,6 +1,6 @@
 import React from 'react'
-import S from '@sanity/desk-tool/structure-builder'
 import { Box } from '@sanity/ui'
+import { DefaultDocumentNodeResolver } from 'sanity/desk'
 import Search from './components/search'
 
 // TODO: Use correct types from Sanity.
@@ -14,7 +14,10 @@ const SearchView: React.FC<SearchViewProps> = props => (
   </Box>
 )
 
-export const getDefaultDocumentNode = ({ schemaType }) => {
+export const defaultDocumentNode: DefaultDocumentNodeResolver = (
+  S,
+  { schemaType },
+) => {
   if (schemaType === 'track') {
     return S.document().views([
       S.view.component(SearchView).title('Search'),
@@ -24,5 +27,3 @@ export const getDefaultDocumentNode = ({ schemaType }) => {
 
   return S.document().views([S.view.form()])
 }
-
-export default S.defaults()

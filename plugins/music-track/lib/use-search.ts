@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import useSwr from 'swr'
 import { Results } from '../types/itunes-search'
 import { Track } from '../types'
@@ -6,7 +6,8 @@ import { Track } from '../types'
 const ITUNES_SEARCH_API_URL = 'https://itunes.apple.com/search'
 
 export default function useSearch(term: string) {
-  const previousResults = useRef([])
+  const previousResults = useRef<Track[]>([])
+  const [value, setValue] = useState<string | undefined>()
 
   const results = useSwr(term.length > 3 ? term : null, async term => {
     const params = new URLSearchParams({
@@ -63,5 +64,7 @@ export default function useSearch(term: string) {
   return {
     previousResults,
     results,
+    value,
+    setValue,
   }
 }
