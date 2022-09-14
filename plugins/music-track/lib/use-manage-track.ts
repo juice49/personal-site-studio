@@ -29,7 +29,10 @@ export default function useManageTrack(trackDocumentId?: string): {
   const id = useRef<string | undefined>(trackDocumentId)
 
   // TODO: Type?
-  const documentOperations: any = useDocumentOperation(trackDocumentId, 'track')
+  const documentOperations: any = useDocumentOperation(
+    trackDocumentId ?? '',
+    'track',
+  )
   const { patch } = documentOperations
 
   async function onSelectTrack(track: Track) {
