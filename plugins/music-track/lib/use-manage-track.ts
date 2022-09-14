@@ -28,8 +28,7 @@ export default function useManageTrack(trackDocumentId?: string): {
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
   const id = useRef<string | undefined>(trackDocumentId)
 
-  // TODO: Type?
-  const documentOperations: any = useDocumentOperation(
+  const documentOperations = useDocumentOperation(
     trackDocumentId ?? '',
     'track',
   )
