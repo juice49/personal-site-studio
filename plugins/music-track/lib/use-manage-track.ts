@@ -55,6 +55,7 @@ export default function useManageTrack(trackDocumentId?: string): {
       })(),
     ])
 
+    // @ts-expect-error
     await patch.execute([
       {
         set: {
