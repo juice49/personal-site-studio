@@ -1,13 +1,14 @@
+import { VercelRequest, VercelResponse } from '@vercel/node'
 import got from 'got'
 import { Platform, PlatformData } from '../plugins/music-track/types'
 import { OdesliData } from '../plugins/music-track/types/odesli'
 
 const ODESLI_API_URL = 'https://api.song.link/v1-alpha.1'
 
-export default async function (req, res) {
+export default async function (req: VercelRequest, res: VercelResponse) {
   const params = new URLSearchParams({
     platform: 'appleMusic',
-    id: req.query.id,
+    id: ([] as string[]).concat(req.query.id)[0],
     type: 'song',
   })
 
