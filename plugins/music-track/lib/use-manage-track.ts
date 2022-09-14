@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { merge } from 'lodash'
-import { useDocumentOperation } from '@sanity/react-hooks'
-import client from 'part:@sanity/base/client'
+import { useClient, useDocumentOperation } from 'sanity'
+import { SanityClient } from '@sanity/client'
 
 import {
   Track,
@@ -13,21 +13,25 @@ import {
 
 import getAppleMusicImageUrl from '../lib/get-apple-music-image-url'
 
-export default function useManageTrack(
-  trackDocumentId?: string,
-): {
+export default function useManageTrack(trackDocumentId?: string): {
   selectedTrack: Track | null
   onSelectTrack: (track: Track) => Promise<void>
   isPending: boolean
   isSuccess: boolean | null
 } {
+  const client = useClient({
+    apiVersion: '2022-09-14',
+  })
+
   const [selectedTrack, setSelectedTrack] = useState<Track | null>(null)
   const [isPending, setIsPending] = useState<boolean>(false)
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
   const id = useRef<string | undefined>(trackDocumentId)
 
-  // TODO: Type?
-  const documentOperations: any = useDocumentOperation(trackDocumentId, 'track')
+  const documentOperations = useDocumentOperation(
+    trackDocumentId ?? '',
+    'track',
+  )
   const { patch } = documentOperations
 
   async function onSelectTrack(track: Track) {
@@ -36,17 +40,22 @@ export default function useManageTrack(
     setIsSuccess(null)
 
     const [artists, album, dataByPlatform] = await Promise.all([
-      Promise.all(track.artists.map(createArtist)),
+      Promise.all(track.artists.map(artist => createArtist(client, artist))),
       (async () => {
-        const albumImage = await createAlbumImage(track.album)
-        return createAlbum(track.album, albumImage._id)
+        const albumImage = await createAlbumImage(client, track.album)
+        return createAlbum(client, track.album, albumImage._id)
       })(),
       fetchPlatformUrls(track.dataByPlatform.appleMusic.id),
       (async () => {
-        id.current = await maybeCreateTrack({ name: track.name }, id.current)
+        id.current = await maybeCreateTrack(
+          client,
+          { name: track.name },
+          id.current,
+        )
       })(),
     ])
 
+    // @ts-expect-error
     await patch.execute([
       {
         set: {
@@ -81,6 +90,7 @@ async function fetchPlatformUrls(
 }
 
 async function maybeCreateTrack(
+  client: SanityClient,
   track: Partial<Track>,
   trackDocumentId?: string,
 ): Promise<string> {
@@ -88,12 +98,15 @@ async function maybeCreateTrack(
     return trackDocumentId
   }
 
-  const createdTrack = await createTrack(track)
+  const createdTrack = await createTrack(client, track)
   return createdTrack._id
 }
 
 // TODO: Return type.
-function createTrack(track: Partial<Track>): Promise<any> {
+function createTrack(
+  client: SanityClient,
+  track: Partial<Track>,
+): Promise<any> {
   return client.create({
     _type: 'track',
     ...track,
@@ -101,7 +114,7 @@ function createTrack(track: Partial<Track>): Promise<any> {
 }
 
 // TODO: Return type.
-function createArtist(artist: Artist): Promise<any> {
+function createArtist(client: SanityClient, artist: Artist): Promise<any> {
   return client.createIfNotExists({
     _id: `artist.${artist.dataByPlatform.appleMusic.id}`,
     _type: 'artist',
@@ -110,7 +123,11 @@ function createArtist(artist: Artist): Promise<any> {
 }
 
 // TODO: Return type.
-function createAlbum(album: Album, albumImageId: string): Promise<any> {
+function createAlbum(
+  client: SanityClient,
+  album: Album,
+  albumImageId: string,
+): Promise<any> {
   return client.createIfNotExists({
     _id: `album.${album.dataByPlatform.appleMusic.id}`,
     _type: 'album',
@@ -126,7 +143,10 @@ function createAlbum(album: Album, albumImageId: string): Promise<any> {
 }
 
 // TODO: Return type.
-async function createAlbumImage(album: Album): Promise<any> {
+async function createAlbumImage(
+  client: SanityClient,
+  album: Album,
+): Promise<any> {
   const response = await fetch(
     getAppleMusicImageUrl(album.appleMusicImageUrl, 1400),
   )
